@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AI Cover Letter Generator</title>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5733428460091370"
+        crossorigin="anonymous"></script>
+        <link href="/static/styles.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Graduate&family=Righteous&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "hglayf4rr7");
+        </script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKGZMZ1GHN"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-WKGZMZ1GHN');
+        </script>
+    </head>   
+    <body>
+    <div class="container">
+        <h1 class="text-center my-4">Your AI-Generated Cover Letter</h1>
+        <div class="card">
+            <textarea id="cover-letter" class="form-control">{{ cover_letter }}</textarea>
+        </div>
+        <div class="my-4">
+            <div class="row">
+                <div class="col-6 " text-align="left">
+                    <button id="copy-button" class="btn btn-secondary">
+                        <i class="bi bi-clipboard2-plus"></i>     Copy
+                    </button>
+                    <form action="/regenerate" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-secondary">
+                            <i class="bi bi-envelope-slash"></i>     Regenerate
+                        </button>
+                    </form>
+                </div>
+                <div class="col-6" align="right">
+                    <a href="/" class="btn btn-primary">
+                        <i class="bi bi-arrow-clockwise"></i>     Restart</a>
+                </div>
+            </div>
+        </div> 
+        <div class="container-footer" text-align="center">
+            <span> Made in Paris with ❤️, we wish you luck with your job hunting !</span><br>
+            <a href="/privacy-policy" class="footer-links">| Privacy Policy</a>
+            <a href="/terms-of-service" class="footer-links">| Terms of Service |</a><br> 
+            <span>&copy;2023 Cover.rip - Contact us at contact.coverrip@gmail.com</span><br>
+          </div>      
+    </div>
+    <script src="/static/copy.js"></script>
+    </body>
+</html>

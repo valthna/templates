@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Cover Letter Generator</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5733428460091370"
+    crossorigin="anonymous"></script>
+    <link href="/static/styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Graduate&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "hglayf4rr7");
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKGZMZ1GHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WKGZMZ1GHN');
+    </script>
+    <script>
+      window.axeptioSettings= {
+        clientId: "6481958eee780ae73c191170",
+        cookiesVersion: "cover.rip-en",
+      };
+      (function(d, s) {
+        var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+        e.async = true; e.src = "//static.axept.io/sdk.js";
+        t.parentNode.insertBefore(e, t);
+      })(document, "script");
+      </script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flashed-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+      <div id="container-bg" class="container-bg"></div>
+      <h1 class="text-center my-4">AI Cover Letter Generator</h1>
+      <div class="instruction">
+        <p>Enter your <b>full LinkedIn profile URL</b> and <b>job offer URL</b>. Click on 'Generate Cover Letter' and wait a few moments. A personalized cover letter will be generated for you in less than a minute ! 🤩 </p>
+      </div>
+      <div class="tips">
+        <p>For best results, make sure your linkedIn profile's visibility is set to "Public" during the process. 🔍 (Settings>Visibility>Allow all)</p>
+      </div>
+      <form method="POST">
+        <div id=url-input class="form-group">
+          <label for="job_offer">
+            <i class="fa-regular fa-building"></i> Job Offer: </label>
+            <input type="url" class="form-control" id="job_offer" name="job_offer" rows="4" placeholder="https://your-dream-company.com/jobs/your-dream-job/" required>
+        </div>
+        <input type="hidden" id="scraped_data" name="scraped_data">
+        <div id=url-input class="form-group">
+          <label for="profile">
+            <i class="fa-brands fa-linkedin"></i> Profile: </label>
+            <input type="url" class="form-control" id="profile" name="profile" rows="4" placeholder="https://www.linkedin.com/in/your-username/" required>
+        </div>
+        <div class="form-group">
+          <label for="language">
+            <i class="fa-solid fa-language"></i> Choose a language for your cover letter: </label>
+          <select id="language" name="language" class="form-control">
+            <option selected value="english">English</option>
+            <option value="chinese">Chinese</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="italian">Italian</option>
+            <option value="dutch">Dutch</option>
+            <option value="russian">Russian</option>
+            <option value="japanese">Japanese</option>
+            <option value="korean">Korean</option>
+            <option value="portuguese">Portuguese</option>
+          </select>
+        </div>
+        <button id="submit-button" type="submit" class="btn btn-primary btn-lg btn-block"><i class="bi bi-envelope-paper"></i>           Generate Cover Letter</button>
+        <canvas id="containerpoints" width="50" height="50" style="display: none;"></canvas>
+        <div id="loading" style="display: none;">
+          <span id="countdown">40 seconds left</span>
+        </div>
+        <div class="container-footer" text-align="center">
+          <span> Made in Paris with ❤️, we wish you luck with your job hunting !</span><br>
+          <a href="/privacy-policy" class="footer-links">| Privacy Policy</a>
+          <a href="/terms-of-service" class="footer-links">| Terms of Service |</a><br> 
+          <span>&copy;2023 Cover.rip - Contact us at contact.coverrip@gmail.com</span><br>
+        </div> 
+      </form>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/5bd3dc603d.js" crossorigin="anonymous"></script>
+    <script>
+      var points = [],
+        velocity2 = 5, // velocity squared
+        canvas = document.getElementById('containerpoints'),
+        context = canvas.getContext('2d'),
+        radius = 2,
+        boundaryX = 50,
+        boundaryY = 50,
+        numberOfPoints = 20;
+      init();
+
+
+      function init() {
+        // create points
+        for (var i = 0; i < numberOfPoints; i++) {
+          createPoint();
+        }
+        // create connections
+        for (var i = 0, l = points.length; i < l; i++) {
+          var point = points[i];
+          if (i == 0) {
+            points[i].buddy = points[points.length - 1];
+          } else {
+            points[i].buddy = points[i - 1];
+          }
+        }
+        // animate
+        animate();
+      }
+
+      function createPoint() {
+        var point = {},
+          vx2, vy2;
+        point.x = Math.random() * boundaryX;
+        point.y = Math.random() * boundaryY;
+        // random vx 
+        point.vx = (Math.floor(Math.random()) * 2 - 1) * Math.random();
+        vx2 = Math.pow(point.vx, 2);
+        // vy^2 = velocity^2 - vx^2
+        vy2 = velocity2 - vx2;
+        point.vy = Math.sqrt(vy2) * (Math.random() * 2 - 1);
+        points.push(point);
+      }
+
+      function resetVelocity(point, axis, dir) {
+        var vx, vy;
+        if (axis == 'x') {
+          point.vx = dir * Math.random();
+          vx2 = Math.pow(point.vx, 2);
+          // vy^2 = velocity^2 - vx^2
+          vy2 = velocity2 - vx2;
+          point.vy = Math.sqrt(vy2) * (Math.random() * 2 - 1);
+        } else {
+          point.vy = dir * Math.random();
+          vy2 = Math.pow(point.vy, 2);
+          // vy^2 = velocity^2 - vx^2
+          vx2 = velocity2 - vy2;
+          point.vx = Math.sqrt(vx2) * (Math.random() * 2 - 1);
+        }
+      }
+
+      function drawCircle(x, y) {
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI, false);
+        context.fillStyle = '#0576ef';
+        context.fill();
+      }
+
+      function drawLine(x1, y1, x2, y2) {
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.strokeStyle = '#3697ff'
+        context.stroke();
+      }
+
+      function draw() {
+        for (var i = 0, l = points.length; i < l; i++) {
+          // circles
+          var point = points[i];
+          point.x += point.vx;
+          point.y += point.vy;
+          drawCircle(point.x, point.y);
+          // lines
+          drawLine(point.x, point.y, point.buddy.x, point.buddy.y);
+          // check for edge
+          if (point.x < 0 + radius) {
+            resetVelocity(point, 'x', 1);
+          } else if (point.x > boundaryX - radius) {
+            resetVelocity(point, 'x', -1);
+          } else if (point.y < 0 + radius) {
+            resetVelocity(point, 'y', 1);
+          } else if (point.y > boundaryY - radius) {
+            resetVelocity(point, 'y', -1);
+          }
+        }
+      }
+
+      function animate() {
+        context.clearRect(0, 0, 200, 200);
+        draw();
+        requestAnimationFrame(animate);
+      }
+      $(document).ready(function() {
+    // Check for saved data in local storage
+    if (localStorage.getItem("profile")) {
+      $('#profile').val(localStorage.getItem("profile"));
+    }
+    if (localStorage.getItem("job_offer")) {
+      $('#job_offer').val(localStorage.getItem("job_offer"));
+    }
+    // When the form is submitted
+    $('form').on('submit', function(e) {
+      // Prevent the form from being submitted normally
+      e.preventDefault();
+
+      // Show the loader and counter
+      $('#loading').css('display', 'block');
+      $('#containerpoints').css('display', 'block');
+
+      // Hide the submit button
+      $('#submit-button').css('display', 'none');
+
+      console.log("Form submitted."); // Debugging line
+      
+      // Start the counter
+      var timeleft = 40;
+      var downloadTimer = setInterval(function() {
+        if (timeleft <= 0) {
+          clearInterval(downloadTimer);
+          document.getElementById("countdown").innerHTML = "Processing...";
+        } else {
+          document.getElementById("countdown").innerHTML = timeleft + " seconds left";
+        }
+        timeleft -= 1;
+      }, 1000);
+
+      console.log("Counter started."); // Debugging lines
+      var job_offer_url = "{{ job_offer_url }}";
+      console.log(job_offer_url);
+
+      // Start the border animation
+      document.getElementById('container-bg').style.display = 'block';
+      document.getElementById('container-bg').style.animation = 'reveal-bg 40s linear forwards';
+
+
+      // Save data to local storage
+      localStorage.setItem("profile", $('#profile').val());
+      localStorage.setItem("job_offer", $('#job_offer').val());
+      // Get the form data
+      let formData = $("form").serializeArray();
+
+      // Send the form data to the back-end
+      $.ajax({
+        url: '/generate',
+        type: 'POST',
+        data: $.param(formData),
+        success: function(response) {
+          // Handle success case
+          if (response.success) {
+            var task_id = response.task_id; // Capture the task_id from the response
+            // Polling function
+            var poll = function() {
+              $.ajax({
+                url: '/check_status',
+                type: 'GET',
+                data: { 'task_id': task_id },
+                success: function(data) {
+                  console.log(data);  // Log the whole data object
+                  if (data.ready) {
+                    window.location.href = '/result'; // Redirect to the result page
+                  } else {
+                    // If not ready, poll again after a delay
+                    setTimeout(poll, 5000);
+                  }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  // Handle error case
+                  alert('An error occurred: ' + textStatus + ' ' + errorThrown);
+                }
+              });
+            };
+            poll(); // Start the polling process
+          } else {
+            // Display error message to the user
+            alert(response.message);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // Handle error case
+          alert('An error occurred: ' + textStatus + ' ' + errorThrown);
+        }
+      });
+    });
+});
+</script>
+</body>
+</html>
