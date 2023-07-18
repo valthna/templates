@@ -29,49 +29,63 @@
 
       gtag('config', 'G-WKGZMZ1GHN');
     </script>
-    <script>
-      window.axeptioSettings= {
-        clientId: "6481958eee780ae73c191170",
-        cookiesVersion: "cover.rip-en",
-      };
-      (function(d, s) {
-        var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-        e.async = true; e.src = "//static.axept.io/sdk.js";
-        t.parentNode.insertBefore(e, t);
-      })(document, "script");
-      </script>
   </head>
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flashed-messages">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
     <div class="container">
       <div id="container-bg" class="container-bg"></div>
       <h1 class="text-center my-4">AI Cover Letter Generator</h1>
       <div class="instruction">
-        <p>Enter your <b>full LinkedIn profile URL</b> and <b>job offer URL</b>. Click on 'Generate Cover Letter' and wait a few moments. A personalized cover letter will be generated for you in less than a minute ! 🤩 </p>
+        <p>Enter your <b>full LinkedIn profile URL</b> and <b>job offer URL (not from linkedIn, please use the URL from the actual job offer)</b>. Click on 'Generate Cover Letter' and wait a few moments. A personalized cover letter will be generated for you in less than a minute ! 🤩 </p>
       </div>
       <div class="tips">
         <p>For best results, make sure your linkedIn profile's visibility is set to "Public" during the process. 🔍 (Settings>Visibility>Allow all)</p>
       </div>
-      <form method="POST">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          <div class="error">
+              <div class="flashed-messages">
+                  {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}">{{ message }}</div>
+                  {% endfor %}
+              </div>
+          </div>
+      {% endif %}
+      {% endwith %}
+      <form method="POST">        
+        <div id=url-input class="form-group">
+          <label for="resume">
+            <i class="fa-regular fa-file-alt"></i> Resume: </label>
+          <!-- === File Upload === -->
+          <div id="FileUpload">
+            <div class="wrapper">
+              <div class="upload">
+                <p>Drop pdf here or<span class="upload__button">Browse</span></p>
+                <p id="resume_name"></p>
+                <input type="file" class="form-control" id="resume" name="resume" accept=".pdf" required style="display: none;">
+              </div>
+              <!-- The following divs display the progress of uploaded files -->
+              <div class="uploaded uploaded--one" style="display: none;">
+                <i class="far fa-file-pdf"></i>
+                <div class="file">
+                  <div class="file__name">
+                    <p id="filename1"></p>
+                    <i class="fas fa-times"></i>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" id="progress1" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id=url-input class="form-group">
           <label for="job_offer">
             <i class="fa-regular fa-building"></i> Job Offer: </label>
-            <input type="url" class="form-control" id="job_offer" name="job_offer" rows="4" placeholder="https://your-dream-company.com/jobs/your-dream-job/" required>
+            <input type="url" class="form-control" id="job_offer_url" name="job_offer_url" rows="4" placeholder="https://your-dream-company.com/jobs/your-dream-job/" required>
         </div>
         <input type="hidden" id="scraped_data" name="scraped_data">
-        <div id=url-input class="form-group">
-          <label for="profile">
-            <i class="fa-brands fa-linkedin"></i> Profile: </label>
-            <input type="url" class="form-control" id="profile" name="profile" rows="4" placeholder="https://www.linkedin.com/in/your-username/" required>
-        </div>
+
         <div class="form-group">
           <label for="language">
             <i class="fa-solid fa-language"></i> Choose a language for your cover letter: </label>
@@ -96,9 +110,6 @@
         </div>
         <div class="container-footer" text-align="center">
           <span> Made in Paris with ❤️, we wish you luck with your job hunting !</span><br>
-          <a href="/privacy-policy" class="footer-links">| Privacy Policy</a>
-          <a href="/terms-of-service" class="footer-links">| Terms of Service |</a><br> 
-          <span>&copy;2023 Cover.rip - Contact us at contact.coverrip@gmail.com</span><br>
         </div> 
       </form>
     </div>
@@ -106,6 +117,57 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/5bd3dc603d.js" crossorigin="anonymous"></script>
+    
+    <script>
+      $(document).ready(function() {
+        // ... existing jQuery code ...
+
+        // File upload handling
+        const uploadButton = document.querySelector(".upload__button");
+        const fileInput = document.querySelector("#resume");
+        uploadButton.addEventListener("click", () => {
+          fileInput.click();
+        });
+
+        fileInput.addEventListener("change", () => {
+          const file = fileInput.files[0];
+          if (file) {
+            uploadFile(file);
+
+            document.getElementById('resume_name').innerText = "Selected file: " + file.name;
+          }
+        });
+
+        fileInput.addEventListener("change", () => {
+          const file = fileInput.files[0];
+          if (file) {
+            uploadFile(file);
+          }
+        });
+
+        async function uploadFile(file) {
+
+          // Hide the text and the browse button
+          document.querySelector('.upload p').style.display = 'none';
+          document.querySelector('.upload__button').style.display = 'none';
+
+          const formData = new FormData();
+          formData.append("resume", file);
+          
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: formData
+          });
+          
+          if (response.ok) {
+            console.log("File uploaded successfully.");
+          } else {
+            console.error("File upload failed.");
+          }
+        }
+      });
+    </script>
+
     <script>
       var points = [],
         velocity2 = 5, // velocity squared
@@ -262,7 +324,9 @@
       $.ajax({
         url: '/generate',
         type: 'POST',
-        data: $.param(formData),
+        data: new FormData($("form")[0]),
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
         success: function(response) {
           // Handle success case
           if (response.success) {
